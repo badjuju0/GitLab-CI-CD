@@ -9,14 +9,13 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Клонируем репозиторий
-RUN git clone https://github.com/badjuju0/OneDev.git /app
+COPY . /app
 
 # Устанавливаем зависимости Python
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Открываем нужный порт (если требуется)
-EXPOSE 8000
+EXPOSE 5000
 
 # Запускаем приложение
-CMD ["python", "OneDev.py"]
+CMD ["python", "api.py"]
