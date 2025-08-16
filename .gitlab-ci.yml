@@ -1,29 +1,17 @@
 stages:
   - build
-  - deploy
+  - test
 
-variables:
-  DOCKER_IMAGE: my-django-app:latest
-
-build:
+# Простейший build job
+build_job:
   stage: build
-  image: docker:latest
-  services:
-    - docker:dind
   script:
-    - docker build -t $DOCKER_IMAGE .
-  only:
-    - main
+    - echo "Build stage: Runner работает!"
+    - echo "Текущая директория: $(pwd)"
+    - ls -la
 
-deploy:
-  stage: deploy
-  image: docker:latest
-  services:
-    - docker:dind
+# Простейший test job
+test_job:
+  stage: test
   script:
-    # Остановим старый контейнер (если есть)
-    - docker rm -f django-app || true
-    # Запустим новый контейнер
-    - docker run -d --name django-app -p 8000:8000 $DOCKER_IMAGE
-  only:
-    - main
+    - echo "Test stage: Runner тоже работает!"
