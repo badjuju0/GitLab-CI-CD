@@ -1,17 +1,42 @@
 stages:
   - build
   - test
+  - deploy
 
-# Простейший build job
-build_job:
+# Сборка Docker-образа
+build:
   stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
   script:
-    - echo "Build stage: Runner работает!"
-    - echo "Текущая директория: $(pwd)"
-    - ls -la
+    - docker build -t my-app:latest .
 
-# Простейший test job
-test_job:
+# Запуск тестов (опционально, если у тебя есть тесты)
+test:
   stage: test
+  image: docker:latest
+  services:
+    - docker:dind
   script:
-    - echo "Test stage: Runner тоже работает!"
+    # Пример: запускаем контейнер и проверяем, что он стартует
+    - docker run -d --name test-app -p 5000:5000 my-app:latest
+    - sleep 5
+    - docker ps | grep test-app
+    # Здесь можно добавить pytest, curl http://localhost:5000 и т.д.
+    - docker stop test-app && docker rm test-app
+
+# Деплой на сервер (локально)
+deploy:
+  stage: deploy
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker stop my-app || true
+    - docker rm my-app || true
+    - docker run -d --name my-app -p 8080:80 my-app:latest
+  only:
+    - main
