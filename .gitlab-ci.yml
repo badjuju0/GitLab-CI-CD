@@ -7,19 +7,15 @@ stages:
 build:
   stage: build
   image: docker:latest
-  services:
-    - docker:dind
-  variables:
-    DOCKER_DRIVER: overlay2
   script:
+    - ls -l /var/run/docker.sock
+    - docker info
     - docker build -t my-app:latest .
 
 # Запуск тестов (опционально, если у тебя есть тесты)
 test:
   stage: test
   image: docker:latest
-  services:
-    - docker:dind
   script:
     # Пример: запускаем контейнер и проверяем, что он стартует
     - docker run -d --name test-app -p 5000:5000 my-app:latest
@@ -32,8 +28,6 @@ test:
 deploy:
   stage: deploy
   image: docker:latest
-  services:
-    - docker:dind
   script:
     - docker stop my-app || true
     - docker rm my-app || true
