@@ -50,8 +50,10 @@ docker run --detach \
 
 После запуска GitLab будет доступен по адресу:
 👉 http://localhost:8080
-
+```
 ###2. Установка GitLab Runner (через Docker)
+
+```sh
 docker run -d --name gitlab-runner --restart always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v $HOME/gitlab-runner/config:/etc/gitlab-runner \
@@ -64,8 +66,8 @@ docker exec -it gitlab-runner gitlab-runner register
 
 
 Укажите URL вашего GitLab (http://localhost:8080) и токен из настроек проекта.
-
-3. Настройка CI/CD
+```
+### 3. Настройка CI/CD
 
 В .gitlab-ci.yml описаны этапы:
 
@@ -78,9 +80,10 @@ deploy: запуск контейнера с приложением
 Pipeline запускается автоматически при каждом push в репозиторий.
 
 ##🐳 Запуск приложения в Docker вручную
+```sh
 docker build -t gitlab-ci-cd-demo .
 docker run --rm -p 5000:5000 gitlab-ci-cd-demo
-
+```
 
 Приложение будет доступно по адресу:
 👉 http://localhost:5000/image
