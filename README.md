@@ -12,7 +12,6 @@
 
 
 
-.
 ├── .gitlab-ci.yml # Конфигурация GitLab CI/CD pipeline
 
 ├── Dockerfile # Docker-образ для приложения
