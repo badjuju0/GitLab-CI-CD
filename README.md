@@ -51,7 +51,7 @@ docker run --detach \
 После запуска GitLab будет доступен по адресу:
 👉 http://localhost:8080
 ```
-###2. Установка GitLab Runner (через Docker)
+### 2. Установка GitLab Runner (через Docker)
 
 ```sh
 docker run -d --name gitlab-runner --restart always \
