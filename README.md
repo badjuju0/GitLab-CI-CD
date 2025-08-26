@@ -14,10 +14,15 @@
 
 .
 ├── .gitlab-ci.yml # Конфигурация GitLab CI/CD pipeline
+
 ├── Dockerfile # Docker-образ для приложения
+
 ├── api.py # Flask-приложение (пример сервиса)
+
 ├── requirements.txt # Python-зависимости
+
 ├── static/ # Статика (CSS, JS, картинки)
+
 └── templates/ # HTML-шаблоны
 
 
