@@ -12,7 +12,7 @@ build:
     - docker info
     - docker build -t my-app:latest .
 
-# Запуск тестов (опционально, если у тебя есть тесты)
+
 test:
   stage: test
   image: docker:latest
